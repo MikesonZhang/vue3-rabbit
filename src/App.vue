@@ -1,13 +1,11 @@
 <script setup>
-    
 </script>
 
 <template>
-    <div>
-        <el-button type="primary">确定</el-button>
-    </div>
+  <!-- 一级路由出口组件 -->
+  <RouterView />
+  
 </template>
 
 <style scoped>
-
 </style>
