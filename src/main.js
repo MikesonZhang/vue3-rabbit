@@ -17,3 +17,12 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+//全局指令
+app.directive('img-lazy',{
+    mounted(el,binding){
+        //el指令绑定元素 img
+        //binding 
+        console.log(el,binding.value)
+    }
+})
