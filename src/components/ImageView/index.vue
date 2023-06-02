@@ -1,31 +1,24 @@
 <script setup>
-import { ref,watch } from "vue";
-import { useMouseInElement } from "@vueuse/core";
-
-//props适配图片列表
-defineProps({
-  imageList:{
-    type:Array,
-    default:()=>[]
-  }
-})
-
+import { ref, watch } from 'vue'
+import { useMouseInElement } from '@vueuse/core'
 
 // 图片列表
-// const imageList = [
-//   "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
-//   "https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg",
-//   "https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg",
-//   "https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg",
-//   "https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg",
-// ];
-//小图切换大图
-const activeIndex = ref(0);
-const enterhandler = (i) => {
-  activeIndex.value = i;
-};
+const imageList = [
+  "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
+  "https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg",
+  "https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg",
+  "https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg",
+  "https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg"
+]
 
-//获取鼠标相对位置
+// 1.小图切换大图显示
+const activeIndex = ref(0)
+
+const enterhandler = (i) => {
+  activeIndex.value = i
+}
+
+// 2. 获取鼠标相对位置
 const target = ref(null)
 const { elementX, elementY, isOutside } = useMouseInElement(target)
 
@@ -36,10 +29,10 @@ const top = ref(0)
 const positionX = ref(0)
 const positionY = ref(0)
 watch([elementX, elementY, isOutside], () => {
-  
+
   // 如果鼠标没有移入到盒子里面 直接不执行后面的逻辑
   if (isOutside.value) return
-  
+
   // 有效范围内控制滑块距离
   // 横向
   if (elementX.value > 100 && elementX.value < 300) {
@@ -68,35 +61,27 @@ watch([elementX, elementY, isOutside], () => {
 
 <template>
   <div class="goods-image">
+
     <!-- 左侧大图-->
     <div class="middle" ref="target">
       <img :src="imageList[activeIndex]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }" v-show="!isOutside"></div>
+      <div class="layer" v-show="!isOutside" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小图列表 -->
     <ul class="small">
-      <li
-        v-for="(img, i) in imageList"
-        :key="i"
-        @mouseenter="enterhandler(i)"
-        :class="{ active: i === activeIndex }"
-      >
+      <li v-for="(img, i) in imageList" :key="i" @mouseenter="enterhandler(i)" :class="{ active: i === activeIndex }">
         <img :src="img" alt="" />
       </li>
     </ul>
     <!-- 放大镜大图 -->
-    <div
-      class="large"
-      :style="[
-        {
-          backgroundImage: `url(${imageList[0]})`,
-          backgroundPositionX: `${positionX}px`,
-          backgroundPositionY: `${positionY}px`,
-        },
-      ]"
-      v-show="!isOutside"
-    ></div>
+    <div class="large" :style="[
+      {
+        backgroundImage: `url(${imageList[0]})`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
+      },
+    ]" v-show="!isOutside"></div>
   </div>
 </template>
 

@@ -1,32 +1,30 @@
 import request from '@/utils/http'
 
-/**
- * @description: 获取分类数据
- * @param {*} id 分类id 
- * @return {*}
- */
-export const getCategoryAPI = (id) => {
+
+export function getCategoryAPI (id) {
   return request({
-    url:'/category',
-    params:{
+    url: '/category',
+    params: {
       id
     }
   })
 }
+
 /**
  * @description: 获取二级分类列表数据
  * @param {*} id 分类id 
  * @return {*}
  */
 
- export const getCategoryFilterAPI = (id) => {
+export const getCategoryFilterAPI = (id) => {
   return request({
-    url:'/category/sub/filter',
-    params:{
+    url: '/category/sub/filter',
+    params: {
       id
     }
   })
 }
+
 /**
  * @description: 获取导航数据
  * @data { 
@@ -37,10 +35,10 @@ export const getCategoryAPI = (id) => {
    } 
  * @return {*}
  */
-   export const getSubCategoryAPI = (data) => {
-    return request({
-      url:'/category/goods/temporary',
-      method:'POST',
-      data
-    })
-  }
+export const getSubCategoryAPI = (data) => {
+  return request({
+    url: '/category/goods/temporary',
+    method: 'POST',
+    data
+  })
+}

@@ -1,23 +1,12 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
-import GoodsItem from "../Home/components/GoodsItem.vue";
-//业务模块分层代码
-import { useBanner } from "./composables/useBanner";
-import { useCategoryFun } from "./composables/useCategory";
 
-const { bannerList } = useBanner();
-const { categoryData,getCategory,route } = useCategoryFun();
+import GoodsItem from '../Home/components/GoodsItem.vue'
+import { useBanner } from './composables/useBanner'
+import { useCategory } from './composables/useCategory'
+const { bannerList } = useBanner()
+const { categoryData } = useCategory()
 
-//监听在这个页面，直接切换其他页面
-watch(
-  route,
-  () => {
-    getCategory()
-  },
-  {
-    immediate: true,
-  }
-);
+
 </script>
 
 <template>
@@ -34,11 +23,10 @@ watch(
       <div class="home-banner">
         <el-carousel height="500px">
           <el-carousel-item v-for="item in bannerList" :key="item.id">
-            <img :src="item.imgUrl" alt="" />
+            <img :src="item.imgUrl" alt="">
           </el-carousel-item>
         </el-carousel>
       </div>
-      <!-- 全部分类 -->
       <div class="sub-list">
         <h3>全部分类</h3>
         <ul>
@@ -50,11 +38,7 @@ watch(
           </li>
         </ul>
       </div>
-      <div
-        class="ref-goods"
-        v-for="item in categoryData.children"
-        :key="item.id"
-      >
+      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
         <div class="head">
           <h3>- {{ item.name }}-</h3>
         </div>
@@ -89,6 +73,7 @@ watch(
       li {
         width: 168px;
         height: 160px;
+
 
         a {
           text-align: center;
@@ -149,6 +134,7 @@ watch(
   width: 1240px;
   height: 500px;
   margin: 0 auto;
+
 
   img {
     width: 100%;

@@ -1,21 +1,21 @@
-import { getBannerAPI } from "@/apis/home";
-import { onMounted, ref } from "vue";
+// 封装banner轮播图相关的业务代码
+import { ref, onMounted } from 'vue'
+import { getBannerAPI } from '@/apis/home'
 
-export function useBanner() {
-    //获取banner
-    const bannerList = ref([]);
-    const getBanner = async () => {
-        const res = await getBannerAPI({
-            distributionSite: "2",
-        });
-        bannerList.value = res.result;
-    };
+export function useBanner () {
+  const bannerList = ref([])
 
-    onMounted(() => {
-        getBanner()
+  const getBanner = async () => {
+    const res = await getBannerAPI({
+      distributionSite: '2'
     })
+    console.log(res)
+    bannerList.value = res.result
+  }
 
-    return{
-        bannerList
-    }
+  onMounted(() => getBanner())
+
+  return {
+    bannerList
+  }
 }
